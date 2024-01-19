@@ -1,3 +1,4 @@
+import 'package:app_tarefas/todo_lis_widget.dart';
 import 'package:flutter/material.dart';
 
 
@@ -20,15 +21,11 @@ class _TodoListPageState extends State<TodoListPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("To Do App"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Task 1',
-            ),
-          ],
-        ),
+      body: ListView(
+        children: [
+          // widget para nova tarefa
+          TodoListWidget(),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
