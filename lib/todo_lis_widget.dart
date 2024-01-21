@@ -1,4 +1,5 @@
 import 'package:app_tarefas/todo_item_widget.dart';
+import 'package:app_tarefas/todo_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app_tarefas/todo.dart';
 
@@ -11,17 +12,24 @@ List<Todo>  todoList = [
 ];
 
 class TodoListWidget extends StatelessWidget {
-  const TodoListWidget({super.key});
+  TodoListWidget({super.key});
+
+  final controller = TodoListController();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      primary: false,
-      shrinkWrap: true,
-      itemCount: todoList.length,
-      itemBuilder: (context, index)  {
-        return TodoItemWidget(todo: todoList[index]);
-      },
+    return ValueListenableBuilder(
+      valueListenable: controller.todoListNotifier, 
+      builder:(context, todoList, child){
+        return ListView.builder(
+          primary: false,
+          shrinkWrap: true,
+          itemCount: todoList.length,
+          itemBuilder: (context, index)  {
+            return TodoItemWidget(todo: todoList[index]);
+          },
+        );
+      }
     );
   }
 }
