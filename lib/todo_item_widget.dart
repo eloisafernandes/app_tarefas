@@ -22,7 +22,20 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
     return ListTile(
       title: TextFormField(
         controller: todoController,
-      )
+        decoration: InputDecoration.collapsed(hintText: 'escreva sua tarefa...'),
+        onChanged: onChanged
+      ),
+      leading: Checkbox(
+        onChanged: onToggled,
+        value: widget.todo.completed,
+      ),
     );
+  }
+
+  void onChanged(String task){
+    print(task);
+  }
+  void onToggled(_){
+    print(_);
   }
 }
