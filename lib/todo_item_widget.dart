@@ -15,9 +15,11 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
   @override
   void initState(){
     todoController = TextEditingController(text: widget.todo.task);
+    super.initState();
+
   }
   
-  
+
   
   @override
   Widget build(BuildContext context) {

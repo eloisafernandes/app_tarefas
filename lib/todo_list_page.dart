@@ -1,4 +1,4 @@
-import 'package:app_tarefas/todo_lis_widget.dart';
+import 'package:app_tarefas/todo_list_widget.dart';
 import 'package:flutter/material.dart';
 
 

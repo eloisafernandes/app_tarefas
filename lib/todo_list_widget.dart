@@ -1,3 +1,4 @@
+import 'package:app_tarefas/service_locator.dart';
 import 'package:app_tarefas/todo_item_widget.dart';
 import 'package:app_tarefas/todo_list_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ List<Todo>  todoList = [
 class TodoListWidget extends StatelessWidget {
   TodoListWidget({super.key});
 
-  final controller = TodoListController();
+  final controller = getIt<TodoListController>();
 
   @override
   Widget build(BuildContext context) {

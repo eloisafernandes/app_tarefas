@@ -1,7 +1,9 @@
+import 'package:app_tarefas/service_locator.dart';
 import 'package:app_tarefas/todo_list_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setupGetIt();
   runApp(const MyApp());
 }
 
