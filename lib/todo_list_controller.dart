@@ -1,3 +1,4 @@
+import 'package:app_tarefas/todo.dart';
 import 'package:app_tarefas/todo_list_notifier.dart';
 
 class TodoListController {
@@ -13,6 +14,8 @@ class TodoListController {
   void remove(String id)  {
     todoListNotifier.remove(id);
   }
-
+  void add(String task)  {
+    todoListNotifier.add(Todo.create(task));
+  }
  
 }

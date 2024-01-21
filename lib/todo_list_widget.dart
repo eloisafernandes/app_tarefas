@@ -27,7 +27,8 @@ class TodoListWidget extends StatelessWidget {
           shrinkWrap: true,
           itemCount: todoList.length,
           itemBuilder: (context, index)  {
-            return TodoItemWidget(todo: todoList[index]);
+            final todo = todoList[index];
+            return TodoItemWidget( key: ValueKey(todo.id) , todo: todoList[index]);
           },
         );
       }
