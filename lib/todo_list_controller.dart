@@ -9,4 +9,10 @@ class TodoListController {
   void toogle(String id)  {
     todoListNotifier.toggle(id);
   }
+
+  void remove(String id)  {
+    todoListNotifier.remove(id);
+  }
+
+ 
 }

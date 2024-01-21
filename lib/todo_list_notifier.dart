@@ -26,6 +26,8 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
         if (todo.id != id) todo else todo.copyWith(completed: !todo.completed)
     ];
   }
-
+  void remove(String id){
+    value = value.where((todo) => todo.id != id).toList();
+  }
 
 }
