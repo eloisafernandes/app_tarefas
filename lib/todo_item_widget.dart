@@ -29,6 +29,11 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
         onChanged: onToggled,
         value: widget.todo.completed,
       ),
+      trailing: IconButton(
+        icon: Icon(Icons.close_rounded),
+        onPressed: onDeleted,
+        visualDensity: VisualDensity.compact,
+      ),
     );
   }
 
@@ -37,5 +42,9 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
   }
   void onToggled(_){
     print(_);
+  }
+
+  void onDeleted(){
+    print("deletado");
   }
 }
