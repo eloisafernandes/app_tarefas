@@ -15,9 +15,9 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   final controller = getIt<TodoListController>();
   static const List<Tab> tabs = [
-    Tab(text: 'todas'),
-    Tab(text: 'a fazer'),
-    Tab(text: 'concluídas'),
+    Tab(text: 'Todas'),
+    Tab(text: 'A fazer'),
+    Tab(text: 'Concluídas'),
   ];
 
   @override
@@ -44,8 +44,15 @@ class _TodoListPageState extends State<TodoListPage> {
         body: ListView(
           children: [
             // widget para nova tarefa
-            
-            const NewTodoWidget(),
+            ValueListenableBuilder(
+              valueListenable: controller.filterNotifier, 
+              builder:(context, filter, child){
+                if (filter == TodoFilter.completed){
+                  return const SizedBox.shrink();
+                }
+                return const NewTodoWidget();
+              },
+            ),            
             TodoListWidget(),
           ],
         ), // This trailing comma makes auto-formatting nicer for build methods.

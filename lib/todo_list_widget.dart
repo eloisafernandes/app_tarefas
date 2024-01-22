@@ -1,4 +1,5 @@
 import 'package:app_tarefas/service_locator.dart';
+import 'package:app_tarefas/todo_filter.dart';
 import 'package:app_tarefas/todo_item_widget.dart';
 import 'package:app_tarefas/todo_list_controller.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +23,25 @@ class TodoListWidget extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: controller.todoListNotifier, 
       builder:(context, todoList, child){
-        return ListView.builder(
+        var isFilterAll = controller.filterNotifier.value == TodoFilter.all;
+
+        if (todoList.isEmpty && !isFilterAll){
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("Nada a exibir"),
+            ),
+          );
+        }
+        return ReorderableListView.builder(
           primary: false,
           shrinkWrap: true,
+          buildDefaultDragHandles: isFilterAll,
           itemCount: todoList.length,
+          onReorder:controller.onReorder,
           itemBuilder: (context, index)  {
             final todo = todoList[index];
-            return TodoItemWidget( key: ValueKey(todo.id) , todo: todoList[index]);
+            return TodoItemWidget( key: ValueKey(todo.id) , todo: todo);
           },
         );
       }

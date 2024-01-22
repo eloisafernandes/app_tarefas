@@ -42,6 +42,9 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
   void remove(String id){
     _allTodosNotifier.value = value.where((todo) => todo.id != id).toList();
   }
+  void reorder(List<Todo> todos){
+    _allTodosNotifier.value = todos;
+  }
 
   void changeFilter(TodoFilter filter){
     _currentFilter = filter;

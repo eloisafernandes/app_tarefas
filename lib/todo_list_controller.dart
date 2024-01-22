@@ -30,6 +30,18 @@ class TodoListController {
     print(filter);
   }
 
+  void onReorder(oldIndex, newIndex) {
+    if (oldIndex < newIndex){
+      newIndex -= 1;
+    }
+    final todos = todoListNotifier.value;
+    final todo = todos.removeAt(oldIndex);
+    todos.insert(newIndex, todo);
+    
+    todoListNotifier.reorder(todos);
+            
+  }
+
   
  
 }
