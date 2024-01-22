@@ -18,7 +18,7 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
   void init() async{
     _allTodosNotifier.value = await _storageService.getTodos();
     _updateTodoList();
-    
+
     _allTodosNotifier.addListener(() {
       _updateTodoList();
       _saveTodoListDB();
@@ -59,7 +59,7 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
 
 
   void _saveTodoListDB(){
-    _storageService.saveTodos(_todos);
+    _storageService.saveTodos(_todos.where((todo) => todo.task.isNotEmpty).toList( ));
   }
 
   List<Todo> _mapFilterTodoList() => switch(_currentFilter){
