@@ -1,30 +1,32 @@
 import 'dart:ffi';
 
+import 'package:app_tarefas/service_locator.dart';
+import 'package:app_tarefas/storage_service.dart';
 import 'package:app_tarefas/todo_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:app_tarefas/todo.dart';
 
 class TodoListNotifier extends ValueNotifier<List<Todo>>{
 
-  TodoListNotifier() : super(_initialValue);
+  TodoListNotifier() : super([]);
 
-  static final List<Todo>  _initialValue = [
-    Todo.create("task 1"),
-    Todo.create("task 2"),
-    Todo.create("task 3"),
-    Todo.create("task 4"),
-    Todo.create("task 5"),
-  ];
-  final _allTodosNotifier = ValueNotifier<List<Todo>>(_initialValue);
+  final _allTodosNotifier = ValueNotifier<List<Todo>>([]);
   TodoFilter _currentFilter = TodoFilter.all;
   List<Todo> get _todos => _allTodosNotifier.value;
+  final _storageService = getIt<StorageService>();
 
-  void init(){
-    _allTodosNotifier.addListener(() => _updateTodoList());
+  void init() async{
+    _allTodosNotifier.value = await _storageService.getTodos();
+    _updateTodoList();
+    
+    _allTodosNotifier.addListener(() {
+      _updateTodoList();
+      _saveTodoListDB();
+    });
   }
 
   void add(Todo todo){
-    _allTodosNotifier.value = [...value, todo];
+    _allTodosNotifier.value = [..._todos, todo];
   }
   void update(String id, String task){
     _allTodosNotifier.value = [
@@ -35,12 +37,12 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
 
   void toggle(String id){
     _allTodosNotifier.value = [
-      for (final todo in value)
+      for (final todo in _todos)
         if (todo.id != id) todo else todo.copyWith(completed: !todo.completed)
     ];
   }
   void remove(String id){
-    _allTodosNotifier.value = value.where((todo) => todo.id != id).toList();
+    _allTodosNotifier.value = _todos.where((todo) => todo.id != id).toList();
   }
   void reorder(List<Todo> todos){
     _allTodosNotifier.value = todos;
@@ -53,6 +55,11 @@ class TodoListNotifier extends ValueNotifier<List<Todo>>{
 
   void _updateTodoList(){
     value = _mapFilterTodoList();
+  }
+
+
+  void _saveTodoListDB(){
+    _storageService.saveTodos(_todos);
   }
 
   List<Todo> _mapFilterTodoList() => switch(_currentFilter){

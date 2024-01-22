@@ -1,9 +1,12 @@
 import 'package:app_tarefas/service_locator.dart';
 import 'package:app_tarefas/todo_list_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async{
+  await Hive.initFlutter();
   setupGetIt();
+  
   runApp(const MyApp());
 }
 
