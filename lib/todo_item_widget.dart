@@ -22,8 +22,6 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
 
   }
   
-
-  
   @override
   Widget build(BuildContext context) {
     return ListTile(
